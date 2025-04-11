@@ -6,6 +6,7 @@ Welcome to **Code-crafters**, a project built with passion and innovation at **H
 
 In today’s rapidly evolving digital space, solving everyday problems with efficient, scalable, and user-centric applications is crucial. **CodeCrafters** is our step towards making a meaningful impact through tech.
 ![Virtual Gym Trainer Homepage](./Screenshot%20(1178).png)
+ [Model-Photo].(./model-photo.png)
 
 
 ---
