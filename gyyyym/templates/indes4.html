@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Virtual Gym Trainer</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-image: url('https://t3.ftcdn.net/jpg/04/29/35/62/360_F_429356296_CVQ5LkC6Pl55kUNLqLisVKgTw9vjyif1.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            color: #db1212;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100vh;
+            justify-content: flex-start;
+        }
+
+        header {
+            background-color: #1e1e2f;
+            width: 100%;
+            padding: 20px 0;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        header h1 {
+            color: #ffffff;
+            margin: 0;
+            font-size: 2.5rem;
+        }
+
+        #video-container {
+            margin-top: 20px;
+            width: 90%;
+            max-width: 800px;
+            position: relative;
+            display: none; /* Hide initially */
+            justify-content: center;
+            align-items: center;
+        }
+
+        #video-feed {
+            width: 100%;
+            border-radius: 12px;
+            border: 3px solid #333;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+            transition: transform 0.3s ease;
+        }
+
+        #video-feed:hover {
+            transform: scale(1.01);
+        }
+
+        .loading {
+            font-size: 1.5rem;
+            color: #fff;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            z-index: 10;
+        }
+
+        .btn-group {
+            margin-top: 20px;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 8px;
+            background-color: #28a745;
+            color: white;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #218838;
+        }
+
+        a {
+            color: white;
+            text-decoration: underline;
+            font-weight: bold;
+        }
+
+        @media screen and (max-width: 600px) {
+            header h1 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Virtual Gym Trainer: Dumbbell Curls</h1>
+    </header>
+
+    <div class="btn-group">
+        <button onclick="startWorkout('low')">Low (5 Reps)</button>
+        <button onclick="startWorkout('mid')">Mid (10 Reps)</button>
+        <button onclick="startWorkout('high')">High (20 Reps)</button>
+    </div>
+
+    <h1 style="color: white; margin-top: 20px;">Recommended Exercise:</h1>
+    <a href="http://127.0.0.1:5006/">Hammer Curl</a>
+
+    <div id="video-container">
+        <div id="loadingText" class="loading">Loading workout feed...</div>
+        <img id="video-feed" src="" alt="Video Feed" onload="videoLoaded()" />
+    </div>
+
+    <script>
+        function startWorkout(level) {
+            fetch(`/start_${level}`, { method: 'POST' })
+                .then(() => {
+                    document.getElementById('video-feed').src = '/video_feed';
+                    document.getElementById('video-container').style.display = 'flex';
+                    document.getElementById('loadingText').style.display = 'block';
+                });
+        }
+
+        function videoLoaded() {
+            const loadingText = document.getElementById('loadingText');
+            if (loadingText) {
+                loadingText.style.display = 'none';
+            }
+        }
+    </script>
+</body>
+</html>

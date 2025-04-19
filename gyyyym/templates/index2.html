@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Virtual Gym Trainer</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-image: url('https://t3.ftcdn.net/jpg/04/29/35/62/360_F_429356296_CVQ5LkC6Pl55kUNLqLisVKgTw9vjyif1.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            color: #db1212;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        header {
+            background-color: #1e1e2f;
+            width:100%;
+            padding:20px 0;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        header h1 {
+            color:#ffffff;
+            margin:0;
+            font-size:2.5rem;
+        }
+        #video-container{
+             margin-top:30px;
+             width:90%;
+             max-width: 800px;
+             position:relative;
+            }
+
+        #video-feed{
+            width:100%;
+            border-radius:12px;
+            border:3px solid #333;
+            box-shadow:0 10px 20px rgba(0,0,0,0.2);
+            transition: transform 0.3s ease;
+        }
+        #video-feed:hover{
+            transform: scale(1.01);
+        }
+        .loading{
+            font-size:1.2rem;
+            color:#888;
+            margin-top:10px;
+        }
+        @media screen and (max-width:600px){
+            header h1 {
+                font-size:1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Virtual Gym Trainer:Squates</h1>
+    </header>
+    <div id="video-container">
+        <img id="video-feed" src="{{ url_for('video_feed') }}" alt="Video Feed">
+    <div class="loading" id="loadingText">Loading video feed...</div>
+    </div>
+    <script>
+        const video=document.getElementById('video-feed');
+        const loadingText=document.getElementById('loadingText');
+
+        video.onload=()=>{
+            loadingText.style.display='none';
+        };
+    </script>
+</body>
+</html>
